@@ -8,10 +8,10 @@ from aws_cdk import core as cdk
 # being updated to use `cdk`.  You may delete this import if you don't need it.
 from aws_cdk import core
 
-from pingme2.pingme2_stack import Pingme2Stack
+from pingme.pingme_stack import PingmeStack
 
 
 app = cdk.App()
-Pingme2Stack(app, "pingme2")
+PingmeStack(app, "pingme")
 
 app.synth()

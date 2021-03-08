@@ -6,7 +6,7 @@ with open("README.md") as fp:
 
 
 setuptools.setup(
-    name="pingme2",
+    name="pingme",
     version="0.0.1",
 
     description="An empty CDK Python app",
@@ -15,8 +15,8 @@ setuptools.setup(
 
     author="author",
 
-    package_dir={"": "pingme2"},
-    packages=setuptools.find_packages(where="pingme2"),
+    package_dir={"": "pingme"},
+    packages=setuptools.find_packages(where="pingme"),
 
     install_requires=[
         "aws-cdk.core==1.92.0",
