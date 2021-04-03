@@ -16,3 +16,6 @@ pingme/
 
 # pystuff
 __pycache__/
+
+# CDK stuff
+cdk.out/
