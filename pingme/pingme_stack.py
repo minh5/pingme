@@ -2,7 +2,6 @@ import os
 
 from aws_cdk import core as cdk
 from aws_cdk import aws_apigateway as apigw
-from aws_cdk import aws_events as events
 from aws_cdk import aws_iam as iam
 from aws_cdk import aws_lambda as _lambda
 from aws_cdk import aws_sns as sns
@@ -34,13 +33,15 @@ class PingmeStack(cdk.Stack):
             event_pattern=sms_pattern
         )
 
-        # lambda invocation via API`
+        # creating the service role to be used
         sns_policy  = iam.ManagedPolicy.from_aws_managed_policy_name('AmazonSNSFullAccess')
         lambda_policy = iam.ManagedPolicy.from_aws_managed_policy_name('AWSLambda_FullAccess')
         service_role = iam.Role(self, 'pingme_svc_acct',
                                 assumed_by=iam.ServicePrincipal('lambda.amazonaws.com'))
         service_role.add_managed_policy(sns_policy)
         service_role.add_managed_policy(lambda_policy)
+
+        # lambda invocation via API-Gateway
         py_lambda = _lambda.Function(
             self,
             "handler",
