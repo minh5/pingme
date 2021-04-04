@@ -23,16 +23,6 @@ class PingmeStack(cdk.Stack):
         sms_sub = subs.SmsSubscription(phone_num)
         topic.add_subscription(sms_sub)
 
-        # hooking it up with eventbridge
-        sms_target = targets.SnsTopic(topic)
-        sms_pattern = events.EventPattern(detail=[{"source": ["pingme"]}])
-        event_rule = events.Rule(
-            self,
-            "sms_rule",
-            targets=[sms_target],
-            event_pattern=sms_pattern
-        )
-
         # creating the service role to be used
         sns_policy  = iam.ManagedPolicy.from_aws_managed_policy_name('AmazonSNSFullAccess')
         lambda_policy = iam.ManagedPolicy.from_aws_managed_policy_name('AWSLambda_FullAccess')
@@ -48,7 +38,10 @@ class PingmeStack(cdk.Stack):
             runtime=_lambda.Runtime.PYTHON_3_7,
             code=_lambda.Code.from_asset("lambda"),
             handler="pingme.handler",
-            environment={'topic_arn': topic.topic_arn},
+            environment={
+                'TOPIC_ARN': topic.topic_arn,
+                'PHONE_NUMBER': phone_num
+            },
             role=service_role
         )
         apigw.LambdaRestApi(

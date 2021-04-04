@@ -19,7 +19,7 @@ def handler(event: Dict[str, Any], context: Dict[str, Any]) -> None:
     sns_client = boto3.client("sns")
 
     # Put an event
-    message = {"Message": event["body"], "TopicArn": os.environ["topic_arn"]}
+    message = {"Message": event["body"], "TopicArn": os.environ["TOPIC_ARN"]}
     response = {"headers": {"Content-Type": "text/plain"}}
 
     # this variable is required for deploy
