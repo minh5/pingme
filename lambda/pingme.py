@@ -28,9 +28,10 @@ def handler(event: Dict[str, Any], context: Dict[str, Any]) -> None:
 
     # validation
     try:
-        sns_client.publish(**message)
+        # sns_client.publish(**message)
         response["statusCode"] = 200
-        response["body"] = f"message successfully sent via pingme to {obfuscated}"
+        # response["body"] = f"message successfully sent via pingme to {obfuscated}"
+        response["body"] = json.dumps(event["body"])
     except Exception as e:
         response["statusCode"] = 400
         response["body"] = e

@@ -14,9 +14,8 @@ class PingmeStack(cdk.Stack):
     def __init__(self, scope: cdk.Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-
         # adding sns topics with SMS support
-        phone_num = os.environ.get('PHONE_NUMBER')
+        phone_num = os.environ['PHONE_NUMBER']
         topic = sns.Topic(
             self,
             "SMS")
